@@ -80,6 +80,19 @@ public class Song implements Runnable {
             System.out.println("Stopped: " + title);
         }
     }
+    
+    /*
+     * Method to restart the song from the beginning
+     */
+    public void restart() {
+        if (clip != null) {
+            clipPosition = 0;  // Reset position to the start of the song
+            clip.setMicrosecondPosition(0);  // Move to the beginning
+            clip.start();  // Play the song from the start
+            isPlaying = true;
+            System.out.println("Restarting: " + title);
+        }
+    }
 
     /*
      * Check if the song is still playing

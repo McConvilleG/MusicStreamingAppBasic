@@ -44,6 +44,15 @@ public class Playlist {
             songs.get(currentSongIndex).stop();
         }
     }
+    
+    /*
+     * Restart the current song from the beginning
+     */
+    public void restart() {
+        if (!songs.isEmpty()) {
+            songs.get(currentSongIndex).restart();
+        }
+    }
 
     /*
      * Skip to the next song
@@ -79,4 +88,7 @@ public class Playlist {
             next();  // Automatically go to the next song
         }
     }
+    
+    
+    //***add functionality here to put song back to start***
 }//end of class 

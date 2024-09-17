@@ -36,7 +36,7 @@ public class MusicStreamingApp {
             playlist.checkForAutoNext();
 
             // Prompt user for input
-            System.out.println("Enter command (play, pause, stop, next, previous, exit): ");
+            System.out.println("Enter command (play, pause, stop, restart, next, previous, exit): ");
             String userInput = scanner.nextLine();
 
             switch (userInput.toLowerCase()) {
@@ -48,6 +48,9 @@ public class MusicStreamingApp {
                     break;
                 case "stop":
                     playlist.stop();
+                    break;
+                case "restart":
+                    playlist.restart();
                     break;
                 case "next":
                     playlist.next();
