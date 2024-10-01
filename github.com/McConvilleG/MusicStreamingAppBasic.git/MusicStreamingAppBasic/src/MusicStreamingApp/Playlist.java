@@ -2,6 +2,8 @@ package MusicStreamingApp;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /*
  * class handles song playlist 
@@ -11,6 +13,7 @@ public class Playlist {
 
     private List<Song> songs = new ArrayList<>();
     private int currentSongIndex = 0;
+    private Timer autoNextTimer;
 
     public void addSong(Song song) {
         songs.add(song);
@@ -22,6 +25,7 @@ public class Playlist {
     public void play() {
         if (!songs.isEmpty() && !songs.get(currentSongIndex).isPlaying()) {
             songs.get(currentSongIndex).playInBackground();
+            startAutoNextCheck();
         } else {
             System.out.println("Song is already playing.");
         }
@@ -88,5 +92,33 @@ public class Playlist {
             next();  // Automatically go to the next song
         }
     }
+    
+    /*
+     * auto move to next song fix- new timer checks every second if 
+     * current song is finished by calling checkForAutoNext() method 
+     */
+    private void startAutoNextCheck() {
+        autoNextTimer = new Timer();
+        autoNextTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                checkForAutoNext();
+            }
+        }, 0, 1000);  // Check every 1 second
+    }
+    
+    /*
+     * cancels timer when song is paused or stopped, so it doesn't 
+     * check unnecessarily when no song is playing 
+     */
+    private void stopAutoNextCheck() {
+        if (autoNextTimer != null) {
+            autoNextTimer.cancel();
+            autoNextTimer = null;
+        }
+    }
+
+    
+    
     
 }//end of class 
